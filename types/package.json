@@ -1,0 +1,19 @@
+{
+  "name": "types",
+  "version": "1.0.0",
+  "main": "",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "zod": "^4.0.17"
+  }
+}
