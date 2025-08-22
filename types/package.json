@@ -1,5 +1,5 @@
 {
-  "name": "types",
+  "name": "@codersubham/bond-store-types",
   "version": "1.0.0",
   "main": "",
   "types": "dist/index.d.ts",
