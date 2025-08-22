@@ -1,6 +1,8 @@
 const Container = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex max-w-3xl w-full mx-auto p-5 h-full">{children}</div>
+    <div className="flex max-w-3xl min-h-screen w-full mx-auto p-2 h-full">
+      {children}
+    </div>
   );
 };
 

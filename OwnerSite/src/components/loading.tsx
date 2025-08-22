@@ -1,15 +1,15 @@
 const Loading = ({ loading }: { loading: boolean }) => {
   return (
     loading && (
-      <div className="w-screen h-screen bg-white fixed z-100">
+      <div className="w-screen h-screen flex justify-center items-center bg-neutral-200 fixed z-100">
         <div
           style={{
             position: "absolute",
-            top: "50%",
+            top: "46%",
             left: "50%",
             transform: "translate(-50%, -50%)",
           }}
-          className="h-10 flex items-center justify-center w-20"
+          className="h-10 flex flex-col items-center justify-center w-20"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
             <circle
@@ -68,6 +68,9 @@ const Loading = ({ loading }: { loading: boolean }) => {
             </circle>
           </svg>
         </div>
+        <span className="font-toreadore font-bold tracking-widest">
+          Please Wait While Loading
+        </span>
       </div>
     )
   );
