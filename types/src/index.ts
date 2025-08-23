@@ -16,6 +16,18 @@ export const ProductSchema = z.object({
   productCategory: z.enum(productCategories),
 });
 
+export const UserSchema = z.object({
+  username: z.string().min(3),
+  userAddress: z.string().min(5),
+  userLandmark: z.string().min(3),
+  userState: z.string().min(3),
+  userPincode: z.string().min(4),
+  userContact: z.string().trim().length(10),
+  userAltrContact: z.string().trim().length(10).optional(),
+});
+
+export type UserType = z.infer<typeof UserSchema>;
+
 export interface ProductInter {
   productId: number;
   productName: string;
