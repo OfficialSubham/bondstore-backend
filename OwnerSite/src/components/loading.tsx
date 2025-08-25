@@ -1,4 +1,8 @@
-const Loading = ({ loading }: { loading: boolean }) => {
+import { useRecoilValue } from "recoil";
+import { loadingState } from "../store/loadingState";
+
+const Loading = () => {
+  const loading = useRecoilValue(loadingState);
   return (
     loading && (
       <div className="w-screen h-screen flex justify-center items-center bg-neutral-200 fixed z-100">
@@ -15,7 +19,7 @@ const Loading = ({ loading }: { loading: boolean }) => {
             <circle
               fill="#000000"
               stroke="#000000"
-              stroke-width="2"
+              strokeWidth="2"
               r="15"
               cx="40"
               cy="65"
@@ -33,7 +37,7 @@ const Loading = ({ loading }: { loading: boolean }) => {
             <circle
               fill="#000000"
               stroke="#000000"
-              stroke-width="2"
+              strokeWidth="2"
               r="15"
               cx="100"
               cy="65"
@@ -51,7 +55,7 @@ const Loading = ({ loading }: { loading: boolean }) => {
             <circle
               fill="#000000"
               stroke="#000000"
-              stroke-width="2"
+              strokeWidth="2"
               r="15"
               cx="160"
               cy="65"

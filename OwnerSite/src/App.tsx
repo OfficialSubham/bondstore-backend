@@ -25,7 +25,7 @@ function App() {
                 path="/products/:category"
                 element={<AllTypeOfProducts />}
               />
-              <Route path="/product/:id" element={<EditProduct />} />
+              <Route path="/edit/product/:id" element={<EditProduct />} />
             </Route>
           </Routes>
         </Container>

@@ -20,9 +20,10 @@ const AllProducts = () => {
     },
     {
       categoryName: "Men's Side Bag",
-      categoryType: "mensidebags",
+      categoryType: "mensidebag",
     },
   ];
+
   return (
     <div className="w-full flex flex-col gap-4 h-full">
       {category.map((cat) => {
