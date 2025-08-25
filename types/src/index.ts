@@ -12,7 +12,8 @@ export type ProductCategory = (typeof productCategories)[number];
 export const ProductSchema = z.object({
   productName: z.string().min(2),
   productDescription: z.string().min(2),
-  productPrice: z.number(),
+  productAcutalPrice: z.number(),
+  productDiscountedPrice: z.number(),
   productCategory: z.enum(productCategories),
 });
 
@@ -34,9 +35,13 @@ export interface ProductInter {
   productImages: Images[];
   productDesc: string;
   productCategory: ProductCategory;
-  productPrice: number;
+  productAcutalPrice: number;
+  productDiscountedPrice: number;
 }
 
+export type EditProductType = ProductInter & {
+  deletedImagesId?: number[];
+};
 export interface Images {
   imgId: number;
   productId: number;
@@ -54,7 +59,10 @@ export interface Order {
 
 export interface productPurchased {
   productId: number;
+  productName: string;
   productImage: Images;
+  productAcutalPrice: number;
+  productDiscountedPrice: number;
   quantity: number;
 }
 

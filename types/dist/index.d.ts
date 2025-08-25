@@ -4,7 +4,8 @@ export type ProductCategory = (typeof productCategories)[number];
 export declare const ProductSchema: z.ZodObject<{
     productName: z.ZodString;
     productDescription: z.ZodString;
-    productPrice: z.ZodNumber;
+    productAcutalPrice: z.ZodNumber;
+    productDiscountedPrice: z.ZodNumber;
     productCategory: z.ZodEnum<{
         menswallet: "menswallet";
         leatherbags: "leatherbags";
@@ -13,13 +14,24 @@ export declare const ProductSchema: z.ZodObject<{
         mensidebag: "mensidebag";
     }>;
 }, z.core.$strip>;
+export declare const UserSchema: z.ZodObject<{
+    username: z.ZodString;
+    userAddress: z.ZodString;
+    userLandmark: z.ZodString;
+    userState: z.ZodString;
+    userPincode: z.ZodString;
+    userContact: z.ZodString;
+    userAltrContact: z.ZodOptional<z.ZodString>;
+}, z.core.$strip>;
+export type UserType = z.infer<typeof UserSchema>;
 export interface ProductInter {
     productId: number;
     productName: string;
     productImages: Images[];
     productDesc: string;
     productCategory: ProductCategory;
-    productPrice: number;
+    productAcutalPrice: number;
+    productDiscountedPrice: number;
 }
 export interface Images {
     imgId: number;
@@ -36,7 +48,10 @@ export interface Order {
 }
 export interface productPurchased {
     productId: number;
+    productName: string;
     productImage: Images;
+    productAcutalPrice: number;
+    productDiscountedPrice: number;
     quantity: number;
 }
 export interface Data {

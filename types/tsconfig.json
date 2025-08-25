@@ -3,7 +3,7 @@
     "target": "ES2020", // Doesn’t matter much, but keep modern
     "module": "nodenext", // Same, since we only care about types
     "declaration": true, // Generate .d.ts files
-    "emitDeclarationOnly": true, // Only emit .d.ts (no .js output)
+    "emitDeclarationOnly": false, // Only emit .d.ts (no .js output)
     "outDir": "dist", // Where .d.ts files go
     "strict": true, // Enforce good type definitions
     "esModuleInterop": true, // Safe default
