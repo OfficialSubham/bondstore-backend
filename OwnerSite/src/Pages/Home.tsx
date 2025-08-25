@@ -2,11 +2,11 @@ import { useState } from "react";
 import Images from "../components/images";
 import UploadImageInput from "../components/uploadImageInput";
 import { useNavigate } from "react-router-dom";
-
 const Home = () => {
   const navigate = useNavigate();
 
   const [images, setImages] = useState<File[]>([]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = Array.from(e.target.files);
@@ -41,6 +41,7 @@ const Home = () => {
         <div className="max-w-3xl flex gap-4 flex-col h-full mx-auto">
           <UploadImageInput
             category={category}
+            Image={images}
             handleFileChange={handleFileChange}
           />
           <button
