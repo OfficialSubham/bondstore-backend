@@ -9,10 +9,11 @@ import Loading from "./components/loading";
 import Alert from "./components/alert";
 import AllTypeOfProducts from "./Pages/AllTypeOfProducts";
 import EditProduct from "./Pages/EditProduct";
+import Orders from "./Pages/Orders";
 function App() {
   return (
     <div className="bg-neutral-200 min-h-screen w-full relative ">
-      <Loading loading={false} />
+      <Loading />
       <Alert />
       <Router>
         <Container>
@@ -26,6 +27,7 @@ function App() {
                 element={<AllTypeOfProducts />}
               />
               <Route path="/edit/product/:id" element={<EditProduct />} />
+              <Route path="/orders" element={<Orders />} />
             </Route>
           </Routes>
         </Container>

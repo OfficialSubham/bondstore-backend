@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Category from "../components/category";
 
 const AllProducts = () => {
@@ -23,9 +24,17 @@ const AllProducts = () => {
       categoryType: "mensidebag",
     },
   ];
-
+  const navigate = useNavigate();
   return (
     <div className="w-full flex flex-col gap-4 h-full">
+      <button
+        className="bg-black text-white font-toreadore px-5 py-3 mx-auto rounded-md"
+        onClick={() => {
+          navigate("/orders");
+        }}
+      >
+        View Orders
+      </button>
       {category.map((cat) => {
         return (
           <Category
