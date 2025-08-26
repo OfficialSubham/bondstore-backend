@@ -1,5 +1,11 @@
-import type { ProductCategory } from "@codersubham/bond-store-types";
+import {
+  ProductSchema,
+  type ProductCategory,
+} from "@codersubham/bond-store-types";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { loadingState } from "../store/loadingState";
+import axios from "axios";
 
 interface CategoryType {
   categoryName: string;
@@ -15,6 +21,10 @@ const UploadImageInput = ({
   category: CategoryType[];
   Image: File[];
 }) => {
+  const BACKEND_URL = import.meta.env.VITE_BACKENDURL;
+
+  const setLoading = useSetRecoilState(loadingState);
+
   const [productDetails, setProductDetails] = useState({
     productName: "",
     productDescription: "",
@@ -36,11 +46,52 @@ const UploadImageInput = ({
     });
   };
 
-  const sendFile = () => {
+  const sendFile = async () => {
     Image.forEach((img) => {
       if (img.size > 160000)
         return alert("Please Give Image of size lesser than 160KB");
     });
+    const { success, data } = ProductSchema.safeParse({
+      productAcutalPrice: Number(productDetails.productAcutalPrice),
+      productName: productDetails.productName,
+      productDiscountedPrice: Number(productDetails.productDiscountedPrice),
+      productDescription: productDetails.productDescription,
+      productCategory: productDetails.productCategory,
+    });
+
+    if (!success) return alert("Please Enter valid product details");
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      for (const file of Image) {
+        formData.append("files", file, file.name);
+      }
+      formData.append("productName", data.productName);
+      formData.append("productAcutalPrice", `${data.productAcutalPrice}`);
+      formData.append("productCategory", data.productCategory);
+      formData.append("productDesc", data.productDescription);
+      formData.append(
+        "productDiscountedPrice",
+        JSON.stringify(data.productDiscountedPrice)
+      );
+
+      const res = await axios.post(`${BACKEND_URL}/createproduct`, formData);
+      alert(res.data.message);
+      setProductDetails({
+        productName: "",
+        productDescription: "",
+        productAcutalPrice: "",
+        productDiscountedPrice: "",
+        productCategory: "menswallet" as ProductCategory,
+      });
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data?.message); // your backend’s error
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
