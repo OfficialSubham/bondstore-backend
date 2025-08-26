@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  productId              Int               @id @default(autoincrement())
+  productName            String
+  productDesc            String
+  productAcutalPrice     Int
+  productDiscountedPrice Int
+  productCategory        ProductCategories
+  Images                 Images[]
+  ProductPurchase        ProductPurchase[]
+}
+
+model Images {
+  imgId     Int     @id @default(autoincrement())
+  productId Int
+  fileId    String
+  imgUrl    String
+  product   Product @relation(fields: [productId], references: [productId])
+}
+
+model UserOrder {
+  userId            Int               @id @default(autoincrement())
+  username          String
+  userAddress       String
+  userLandmark      String
+  userState         String
+  userPincode       String
+  userContact       String
+  userAltrContact   String?
+  productPurchased  ProductPurchase[]
+  AllOrders         AllOrders?        @relation(fields: [allOrdersOrder_id], references: [order_id])
+  allOrdersOrder_id Int?
+}
+
+model AllOrders {
+  order_id Int         @id @default(autoincrement())
+  date     String
+  orders   UserOrder[]
+}
+
+model ProductPurchase {
+  purchasedId     Int        @id @default(autoincrement())
+  productId       Int
+  product         Product    @relation(fields: [productId], references: [productId])
+  productName     String
+  quantity        Int
+  userOrderUserId Int?
+  UserOrder       UserOrder? @relation(fields: [userOrderUserId], references: [userId])
+}
+
+enum ProductCategories {
+  menswallet
+  leatherbags
+  importedbags
+  handclutch
+  mensidebag
+}
