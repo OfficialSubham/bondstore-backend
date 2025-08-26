@@ -33,6 +33,9 @@ export interface ProductInter {
     productAcutalPrice: number;
     productDiscountedPrice: number;
 }
+export type EditProductType = ProductInter & {
+    deletedImagesId?: number[];
+};
 export interface Images {
     imgId: number;
     productId: number;
@@ -44,7 +47,15 @@ export interface Order {
     customerName: string;
     customerNumber: string;
     customerAddress: string;
+    customerLandmark: string;
+    customerPincode: string;
+    customerAltrContact: string;
     productPurchased: productPurchased[];
+}
+export interface AllOrders {
+    order_id: number;
+    date: string;
+    orders: Order[];
 }
 export interface productPurchased {
     productId: number;

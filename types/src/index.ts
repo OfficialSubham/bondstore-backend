@@ -54,7 +54,16 @@ export interface Order {
   customerName: string;
   customerNumber: string;
   customerAddress: string;
+  customerLandmark: string;
+  customerPincode: string;
+  customerAltrContact: string;
   productPurchased: productPurchased[];
+}
+
+export interface AllOrders {
+  order_id: number;
+  date: string;
+  orders: Order[];
 }
 
 export interface productPurchased {
