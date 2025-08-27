@@ -16,10 +16,12 @@ const UploadImageInput = ({
   handleFileChange,
   category,
   Image,
+  setImages,
 }: {
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   category: CategoryType[];
   Image: File[];
+  setImages: (Image: File[]) => void;
 }) => {
   const BACKEND_URL = import.meta.env.VITE_BACKENDURL;
 
@@ -84,6 +86,7 @@ const UploadImageInput = ({
         productDiscountedPrice: "",
         productCategory: "menswallet" as ProductCategory,
       });
+      setImages([]);
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {
@@ -156,6 +159,7 @@ const UploadImageInput = ({
       <textarea
         name="productDescription"
         onChange={handleOnchange}
+        value={productDetails.productDescription}
         className="h-25 rounded-md w-full bg-slate-300/18 p-2"
         placeholder="Enter Product description"
       ></textarea>

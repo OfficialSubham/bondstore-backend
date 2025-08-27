@@ -31,7 +31,7 @@ const Home = () => {
     },
     {
       categoryName: "Men's Side Bag",
-      categoryType: "mensidebags",
+      categoryType: "mensidebag",
     },
   ];
   return (
@@ -43,6 +43,7 @@ const Home = () => {
             category={category}
             Image={images}
             handleFileChange={handleFileChange}
+            setImages={setImages}
           />
           <button
             className="bg-black mx-auto rounded-md text-white px-5 py-3"
