@@ -30,7 +30,7 @@ model Images {
   productId Int
   fileId    String
   imgUrl    String
-  product   Product @relation(fields: [productId], references: [productId])
+  product   Product @relation(fields: [productId], references: [productId], onDelete: Cascade)
 }
 
 model UserOrder {
@@ -57,10 +57,16 @@ model ProductPurchase {
   purchasedId     Int        @id @default(autoincrement())
   productId       Int
   product         Product    @relation(fields: [productId], references: [productId])
-  productName     String
   quantity        Int
   userOrderUserId Int?
   UserOrder       UserOrder? @relation(fields: [userOrderUserId], references: [userId])
+}
+
+model Review {
+  reviewId Int    @id @default(autoincrement())
+  name     String
+  review   String
+  rating   Int
 }
 
 enum ProductCategories {

@@ -60,8 +60,6 @@ createProduct.post(async (c: Context) => {
   } catch (error) {
     return c.json({ messge: "Internal server error", error }, 500);
   }
-
-  return c.json({ message: "working" });
 });
 
 type urlType = {

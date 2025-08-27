@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-08-26",
   "vars": {
-    "PRIVATE_KEY": "private_UKzGWV5xZNcEMpTc6eBCmr+NJCo="
+    "PRIVATE_KEY": "private_UKzGWV5xZNcEMpTc6eBCmr+NJCo=",
+    "DATABASE_URL": "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19GV1hlTnkwOVMwLW5DQkhzNGMwOVYiLCJhcGlfa2V5IjoiMDFLM0s2S01EQzZRRUIzR0pZSE44VDVQWVQiLCJ0ZW5hbnRfaWQiOiJjOTEzZGMzNjc2M2I2NTMzNWRiYmE3YzNhOGFiZGZlNjVkYzhlZjcyZjkyYjgxMDkzMmQ3Mzg3Yjc3N2FmNTg5IiwiaW50ZXJuYWxfc2VjcmV0IjoiMTMxZmVmN2QtN2Q3My00OWVmLThjNzctN2NkZDkwMmE1NjdhIn0.KM50gaKttC8GRiSut-aWgHKZ1U8sPMXVzMMonIApA54"
   }
 }

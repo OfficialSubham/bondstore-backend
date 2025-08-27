@@ -7,7 +7,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
-    "@codersubham/bond-store-types": "^1.1.4",
+    "@codersubham/bond-store-types": "^1.1.5",
     "@prisma/client": "^6.14.0",
     "@prisma/extension-accelerate": "^2.0.2",
     "cors": "^2.8.5",
