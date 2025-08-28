@@ -34,22 +34,22 @@ model Images {
 }
 
 model UserOrder {
-  userId            Int               @id @default(autoincrement())
-  username          String
-  userAddress       String
-  userLandmark      String
-  userState         String
-  userPincode       String
-  userContact       String
-  userAltrContact   String?
-  productPurchased  ProductPurchase[]
-  AllOrders         AllOrders?        @relation(fields: [allOrdersOrder_id], references: [order_id])
-  allOrdersOrder_id Int?
+  userId           Int               @id @default(autoincrement())
+  username         String
+  userAddress      String
+  userLandmark     String
+  userState        String
+  userPincode      String
+  userContact      String
+  userAltrContact  String?
+  productPurchased ProductPurchase[]
+  day              AllOrders         @relation(fields: [dayId], references: [order_id])
+  dayId            Int
 }
 
 model AllOrders {
   order_id Int         @id @default(autoincrement())
-  date     String
+  date     DateTime    @unique
   orders   UserOrder[]
 }
 

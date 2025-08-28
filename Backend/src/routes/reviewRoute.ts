@@ -13,7 +13,7 @@ reviewRoute.get("/getallreview", async (c: Context) => {
     const allReview = await prisma.review.findMany();
     return c.json({ message: "Here is your all review", reviews: allReview });
   } catch (error) {
-    c.json({ msg: "Internal Server Error" }, 500);
+    return c.json({ msg: "Internal Server Error" }, 500);
   }
 });
 
@@ -24,10 +24,13 @@ reviewRoute.post("/createReview", async (c: Context) => {
     }).$extends(withAccelerate());
     const body = await c.req.json();
     const { name, review, rating } = body;
+    console.log(name);
+    console.log(review);
+    console.log(rating);
     const { success } = ReviewSchema.safeParse({
       name,
       review,
-      rating,
+      rating: Number(rating),
     });
     if (!success) return c.json({ msg: "Please enter valid credentials" }, 400);
     await prisma.review.create({

@@ -9,7 +9,11 @@ allProduct.get("/bulk", async (c: Context) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-    const bulkProducts = await prisma.product.findMany();
+    const bulkProducts = await prisma.product.findMany({
+      include: {
+        Images: true,
+      },
+    });
     return c.json({ message: "Here is your products", bulkProducts });
   } catch (error) {
     return c.json({ message: "Internal Server Error" }, 500);

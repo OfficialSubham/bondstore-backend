@@ -6,6 +6,7 @@ import reviewRoute from "./routes/reviewRoute";
 import deleteProductRoute from "./routes/deleteProduct";
 import imgRoute from "./routes/deleteImg";
 import loginRoute from "./routes/login";
+import orderRoute from "./routes/orderRoute";
 
 type Env = {
   Bindings: {
@@ -22,6 +23,7 @@ app.route("/api/v1/createproduct", createProduct);
 app.route("/api/v1/allproduct", allProduct);
 app.route("/api/v1/deleteProduct", deleteProductRoute);
 app.route("/api/v1/img", imgRoute);
+app.route("/api/v1/order", orderRoute);
 app.route("/api/v1/review", reviewRoute);
 
 app.get("/", (c) => {
