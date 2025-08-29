@@ -5,7 +5,7 @@ import { Images } from "@codersubham/bond-store-types";
 
 const imgRoute = new Hono();
 
-imgRoute.delete("/deleteimg", async (c: Context) => {
+imgRoute.post("/deleteimg", async (c: Context) => {
   const body = await c.req.json();
   const { images } = body;
   console.log(images);

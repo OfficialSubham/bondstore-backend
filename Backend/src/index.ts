@@ -9,12 +9,6 @@ import loginRoute from "./routes/login";
 import orderRoute from "./routes/orderRoute";
 import editProduct from "./routes/editProduct";
 
-type Env = {
-  Bindings: {
-    URL: string;
-  };
-};
-
 const app = new Hono();
 app.use("*", cors());
 
