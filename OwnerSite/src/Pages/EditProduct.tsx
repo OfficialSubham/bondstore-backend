@@ -72,7 +72,7 @@ const EditProduct = () => {
     currentProduct && (
       <div className="flex flex-col gap-8 font-toreadore w-full">
         <Carousel
-          Images={currentProduct.productImages}
+          Images={currentProduct.Images}
           setCurrentProduct={setCurrentProduct}
           setDeletedImagesId={setDeletedImagesId}
         />

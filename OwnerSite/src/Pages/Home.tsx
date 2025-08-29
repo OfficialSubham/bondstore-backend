@@ -2,9 +2,11 @@ import { useState } from "react";
 import Images from "../components/images";
 import UploadImageInput from "../components/uploadImageInput";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { bulkProduct } from "../store/allProductsStore";
 const Home = () => {
   const navigate = useNavigate();
-
+  const products = useRecoilValue(bulkProduct);
   const [images, setImages] = useState<File[]>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +44,7 @@ const Home = () => {
       categoryType: "mensidebag",
     },
   ];
-  return (
+  return products ? (
     <div className="w-full h-full overflow-y-scroll">
       <Images images={images} handleDeleteImage={handleDeleteImage} />
       <div className="absolute bottom-0 inset-x-0 bg-slate-700 py-2 px-5">
@@ -64,6 +66,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <div>there is nothing to show for now</div>
   );
 };
 

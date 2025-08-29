@@ -36,7 +36,7 @@ const Category = ({
                 productAcutalPrice={pro.productAcutalPrice}
                 productDiscountedPrice={pro.productDiscountedPrice}
                 productId={pro.productId}
-                productImages={pro.productImages}
+                Images={pro.Images}
                 productName={pro.productName}
                 key={pro.productId}
               />
