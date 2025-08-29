@@ -1,15 +1,36 @@
-import type { Order } from "@codersubham/bond-store-types";
+import type { ProductInter } from "@codersubham/bond-store-types";
 import EachOrder from "./eachOrder";
 import { useSetRecoilState } from "recoil";
 import { ordersState } from "../store/orders";
 import { loadingState } from "../store/loadingState";
 
+type productArray = {
+  product: ProductInter;
+  productId: number;
+  purchasedId: number;
+  quantity: number;
+  userOrderUserId: number;
+};
+
+type IOrder = {
+  dayId: number;
+  productPurchased: productArray[];
+  userAddress: string;
+  userAltrContact?: string;
+  userContact: string;
+  userId: number;
+  userLandmark: string;
+  userPincode: string;
+  userState: string;
+  username: string;
+};
+
 const DateSpecifitOrder = ({
   ordrDate,
   orders,
 }: {
-  ordrDate: string;
-  orders: Order[];
+  ordrDate: Date;
+  orders: IOrder[];
 }) => {
   const formattedDate = new Date(ordrDate).toLocaleDateString("en-IN", {
     day: "2-digit", // 25
@@ -41,9 +62,11 @@ const DateSpecifitOrder = ({
         Delete This Days All Order
       </button>
       <h1>Date: {formattedDate}</h1>
-      {orders.map((ordr) => {
-        return <EachOrder key={ordr.orderId} orderDetails={ordr} />;
-      })}
+      {orders
+        .map((ordr) => {
+          return <EachOrder key={ordr.userId} orderDetails={ordr} />;
+        })
+        .reverse()}
     </div>
   );
 };
