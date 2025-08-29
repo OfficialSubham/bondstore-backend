@@ -13,6 +13,9 @@ allProduct.get("/bulk", async (c: Context) => {
       include: {
         Images: true,
       },
+      // orderBy: {
+      //   productId: "desc",
+      // },
     });
     const reversed = bulkProducts.reverse();
     return c.json({ message: "Here is your products", bulkProducts: reversed });
