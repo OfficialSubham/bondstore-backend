@@ -21,6 +21,7 @@ const UploadImageInput = ({
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   category: CategoryType[];
   Image: File[];
+
   setImages: (Image: File[]) => void;
 }) => {
   const BACKEND_URL = import.meta.env.VITE_BACKENDURL;

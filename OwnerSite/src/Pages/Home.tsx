@@ -12,6 +12,14 @@ const Home = () => {
     const file = Array.from(e.target.files);
     setImages((preSt) => preSt.concat(file));
   };
+
+  const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.dataset.imgId;
+    setImages((pre) => {
+      return pre.filter((_, idx) => idx != Number(id));
+    });
+  };
+
   const category = [
     {
       categoryName: "Men's Wallet",
@@ -36,7 +44,7 @@ const Home = () => {
   ];
   return (
     <div className="w-full h-full overflow-y-scroll">
-      <Images images={images} />
+      <Images images={images} handleDeleteImage={handleDeleteImage} />
       <div className="absolute bottom-0 inset-x-0 bg-slate-700 py-2 px-5">
         <div className="max-w-3xl flex gap-4 flex-col h-full mx-auto">
           <UploadImageInput
