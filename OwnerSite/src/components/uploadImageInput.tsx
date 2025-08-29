@@ -24,8 +24,7 @@ const UploadImageInput = ({
 
   setImages: (Image: File[]) => void;
 }) => {
-  const BACKEND_URL = import.meta.env.VITE_BACKENDURL;
-
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const setLoading = useSetRecoilState(loadingState);
 
   const [productDetails, setProductDetails] = useState({

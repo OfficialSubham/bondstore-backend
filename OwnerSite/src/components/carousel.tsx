@@ -1,5 +1,4 @@
 import type { Images, ProductInter } from "@codersubham/bond-store-types";
-
 export default function Carousel({
   Images,
   setCurrentProduct,
@@ -11,15 +10,21 @@ export default function Carousel({
 }) {
   const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement>) => {
     const id = Number(e.currentTarget.dataset.imageId);
+    const isConfirmed = confirm("Do You really want to delete the image");
+    if (!isConfirmed) return;
     setDeletedImagesId((pre) => {
       return pre.concat(id);
     });
     setCurrentProduct((cr) => {
-      if (cr?.productImages == null) return cr;
-      const currentImages = cr?.productImages.filter((img) => img.imgId != id);
+      if (cr?.Images == null) return cr;
+      if (cr?.Images.length == 1) {
+        alert("Please delete the product or keep 1 image");
+        return cr;
+      }
+      const currentImages = cr?.Images.filter((img) => img.imgId != id);
       return {
         ...cr,
-        productImages: currentImages,
+        Images: currentImages,
       };
     });
   };
@@ -30,13 +35,13 @@ export default function Carousel({
         return (
           <div
             key={img.imgId}
-            className=" h-full rounded-md shadow-xl shrink-0 flex flex-col bg-slate-300/18 w-60 p-2"
+            className=" h-full rounded-md  shadow-xl shrink-0 flex flex-col bg-slate-300/18 w-60 p-2"
           >
-            <div className="flex-1 rounded-md shadow-md">
+            <div className="h-55 rounded-md shadow-md">
               <img
                 src={img.imgUrl}
                 alt={`preview-${img.imgUrl}`}
-                className="h-full w-full"
+                className="h-full w-full rounded-md"
               />
             </div>
             <button

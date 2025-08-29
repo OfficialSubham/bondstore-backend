@@ -2,6 +2,8 @@ import type { ProductInter } from "@codersubham/bond-store-types";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { bulkProduct } from "../store/allProductsStore";
+import axios from "axios";
+import { loadingState } from "../store/loadingState";
 
 type ProductSemiDetails = Pick<
   ProductInter,
@@ -19,16 +21,31 @@ const Product = ({
   productDiscountedPrice,
   productId,
 }: ProductSemiDetails) => {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
+  const setLoading = useSetRecoilState(loadingState);
   const setBulkProduct = useSetRecoilState(bulkProduct);
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const isConfirmed = confirm("Do You Really want to delete this product");
     if (!isConfirmed) return;
-    setBulkProduct((pro) => {
-      if (!pro) return null;
-      return pro?.filter((prod) => prod.productId != productId);
-    });
+    setLoading(true);
+    try {
+      const res = await axios.delete(
+        `${BACKEND_URL}/deleteProduct/${productId}`
+      );
+      if (res.status == 200) {
+        alert("Product deleted successfully");
+        setBulkProduct((pro) => {
+          if (!pro) return null;
+          return pro?.filter((prod) => prod.productId != productId);
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -91,9 +108,31 @@ export const FilterProduct = ({
   productDiscountedPrice,
   productId,
 }: ProductSemiDetails) => {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const setBulkProduct = useSetRecoilState(bulkProduct);
+  const setLoading = useSetRecoilState(loadingState);
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    const isConfirmed = confirm("Do You Really want to delete this product");
+    if (!isConfirmed) return;
+    setLoading(true);
+    try {
+      const res = await axios.delete(
+        `${BACKEND_URL}/deleteProduct/${productId}`
+      );
+      if (res.status == 200) {
+        setBulkProduct((pro) => {
+          if (!pro) return null;
+          return pro?.filter((prod) => prod.productId != productId);
+        });
+        alert("Product deleted successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

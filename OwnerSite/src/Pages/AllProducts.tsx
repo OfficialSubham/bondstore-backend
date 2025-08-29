@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Category from "../components/category";
+import ReviewSection from "../components/reviewSection";
 
 const AllProducts = () => {
   const category = [
@@ -35,6 +36,7 @@ const AllProducts = () => {
       >
         View Orders
       </button>
+      <ReviewSection />
       {category.map((cat) => {
         return (
           <Category

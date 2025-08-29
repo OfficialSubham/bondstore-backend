@@ -10,6 +10,7 @@ import Alert from "./components/alert";
 import AllTypeOfProducts from "./Pages/AllTypeOfProducts";
 import EditProduct from "./Pages/EditProduct";
 import Orders from "./Pages/Orders";
+import AllReviews from "./Pages/AllReviews";
 function App() {
   return (
     <div className="bg-neutral-200 min-h-screen w-full relative ">
@@ -28,6 +29,7 @@ function App() {
               />
               <Route path="/edit/product/:id" element={<EditProduct />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/reviews" element={<AllReviews />} />
             </Route>
           </Routes>
         </Container>

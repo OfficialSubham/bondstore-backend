@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import Carousel from "../components/carousel";
-import type { ProductInter } from "@codersubham/bond-store-types";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  ProductSchema,
+  type ProductInter,
+} from "@codersubham/bond-store-types";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { bulkProduct } from "../store/allProductsStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { loadingState } from "../store/loadingState";
+import axios from "axios";
 
 const EditProduct = () => {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const category = [
     {
       categoryName: "Men's Wallet",
@@ -35,24 +41,63 @@ const EditProduct = () => {
     null
   );
   const [deletedImagesId, setDeletedImagesId] = useState<number[]>([]);
-  const products = useRecoilValue(bulkProduct);
+  const [products, setProducts] = useRecoilState(bulkProduct);
   const setLoadingState = useSetRecoilState(loadingState);
-  const handleEditProduct = async () => {
-    console.log(deletedImagesId);
-    console.log(currentProduct);
-    setLoadingState(true);
-    await new Promise((re) => setTimeout(re, 3000));
-    setLoadingState(false);
-    navigate(-1);
-  };
 
-  useEffect(() => {
-    const product = products?.find((pro) => pro.productId == Number(id));
-    if (product) setCurrentProduct(product);
-    return () => {
-      setCurrentProduct(null);
-    };
-  }, [id, products]);
+  const handleEditProduct = async () => {
+    const { success, data, error } = ProductSchema.safeParse({
+      productAcutalPrice: Number(currentProduct?.productAcutalPrice),
+      productName: currentProduct?.productName,
+      productDiscountedPrice: Number(currentProduct?.productDiscountedPrice),
+      productDescription: currentProduct?.productDesc,
+      productCategory: currentProduct?.productCategory,
+    });
+    console.log(error);
+    if (!success) return alert("Please enter with minimum details");
+    try {
+      setLoadingState(true);
+      const formData = new FormData();
+      formData.append("productId", `${currentProduct?.productId}`);
+      formData.append("productName", data.productName);
+      formData.append("productAcutalPrice", `${data.productAcutalPrice}`);
+      formData.append("productCategory", data.productCategory);
+      formData.append("productDesc", data.productDescription);
+      formData.append(
+        "productDiscountedPrice",
+        JSON.stringify(data.productDiscountedPrice)
+      );
+      if (deletedImagesId.length > 0) {
+        const res = await axios.post(`${BACKEND_URL}/img/deleteimg`, {
+          images: deletedImagesId,
+        });
+        if (res.status != 200)
+          return alert("There is some error in the backend");
+      }
+      const updateProRes = await axios.put(
+        `${BACKEND_URL}/product/editproduct`,
+        formData
+      );
+      if (updateProRes.status != 200)
+        return alert(
+          "There is some problem in the backend please delete the product and create new one"
+        );
+      alert("Successfully updated the product");
+      setProducts((pre) => {
+        if (!pre) return pre;
+        return pre?.map((eachPro) => {
+          if (eachPro.productId == currentProduct?.productId) {
+            return currentProduct;
+          }
+          return eachPro;
+        });
+      });
+      navigate(-1);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingState(false);
+    }
+  };
 
   const handleOnChange = (
     e: React.ChangeEvent<
@@ -67,6 +112,14 @@ const EditProduct = () => {
       };
     });
   };
+
+  useEffect(() => {
+    const product = products?.find((pro) => pro.productId == Number(id));
+    if (product) setCurrentProduct(product);
+    return () => {
+      setCurrentProduct(null);
+    };
+  }, [id, products]);
 
   return (
     currentProduct && (
