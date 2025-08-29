@@ -14,7 +14,8 @@ allProduct.get("/bulk", async (c: Context) => {
         Images: true,
       },
     });
-    return c.json({ message: "Here is your products", bulkProducts });
+    const reversed = bulkProducts.reverse();
+    return c.json({ message: "Here is your products", bulkProducts: reversed });
   } catch (error) {
     return c.json({ message: "Internal Server Error" }, 500);
   }

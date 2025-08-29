@@ -15,9 +15,11 @@ type Env = {
 };
 
 const app = new Hono();
-
 app.use("*", cors());
 
+app.get("/", (c) => {
+  return c.text("Bond Store Project");
+});
 app.route("/api/v1/login", loginRoute);
 app.route("/api/v1/createproduct", createProduct);
 app.route("/api/v1/allproduct", allProduct);
@@ -25,9 +27,5 @@ app.route("/api/v1/deleteProduct", deleteProductRoute);
 app.route("/api/v1/img", imgRoute);
 app.route("/api/v1/order", orderRoute);
 app.route("/api/v1/review", reviewRoute);
-
-app.get("/", (c) => {
-  return c.text("Bond Store Project");
-});
 
 export default app;
