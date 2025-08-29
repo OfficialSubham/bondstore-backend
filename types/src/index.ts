@@ -32,7 +32,7 @@ export type UserType = z.infer<typeof UserSchema>;
 export interface ProductInter {
   productId: number;
   productName: string;
-  productImages: Images[];
+  Images: Images[];
   productDesc: string;
   productCategory: ProductCategory;
   productAcutalPrice: number;
@@ -50,14 +50,15 @@ export interface Images {
 }
 
 export interface Order {
-  orderId: number;
-  customerName: string;
-  customerNumber: string;
-  customerAddress: string;
-  customerLandmark: string;
-  customerPincode: string;
-  customerAltrContact: string;
-  productPurchased: productPurchased[];
+  userId: number;
+  username: string;
+  userAddress: string;
+  userLandmark: string;
+  userState: string;
+  userPincode: string;
+  userContact: string;
+  userAltrContact?: string;
+  dayId: number;
 }
 
 export interface AllOrders {
@@ -74,6 +75,12 @@ export interface productPurchased {
   productDiscountedPrice: number;
   quantity: number;
 }
+
+export const ReviewSchema = z.object({
+  name: z.string().min(2),
+  review: z.string().min(3),
+  rating: z.number().min(1).max(5),
+});
 
 export interface Data {
   message: string;

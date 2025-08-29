@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = exports.ProductSchema = void 0;
+exports.ReviewSchema = exports.UserSchema = exports.ProductSchema = void 0;
 const zod_1 = require("zod");
 const productCategories = [
     "menswallet",
@@ -24,4 +24,9 @@ exports.UserSchema = zod_1.z.object({
     userPincode: zod_1.z.string().min(4),
     userContact: zod_1.z.string().trim().length(10),
     userAltrContact: zod_1.z.string().trim().length(10).optional(),
+});
+exports.ReviewSchema = zod_1.z.object({
+    name: zod_1.z.string().min(2),
+    review: zod_1.z.string().min(3),
+    rating: zod_1.z.number().min(1).max(5),
 });
