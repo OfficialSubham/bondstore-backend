@@ -52,10 +52,11 @@ export interface Order {
     userContact: string;
     userAltrContact?: string;
     dayId: number;
+    productPurchased: productPurchased[];
 }
 export interface AllOrders {
     order_id: number;
-    date: string;
+    date: Date;
     orders: Order[];
 }
 export interface productPurchased {
