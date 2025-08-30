@@ -14,6 +14,7 @@ const Orders = () => {
             // <div key={ordr.order_id}>hello</div>
             <DateSpecifitOrder
               key={ordr.order_id}
+              orderId={ordr.order_id}
               ordrDate={ordr.date}
               orders={ordr.orders}
             />

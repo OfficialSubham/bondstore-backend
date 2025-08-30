@@ -3,6 +3,7 @@ import EachOrder from "./eachOrder";
 import { useSetRecoilState } from "recoil";
 import { ordersState } from "../store/orders";
 import { loadingState } from "../store/loadingState";
+import axios from "axios";
 
 type productArray = {
   product: ProductInter;
@@ -26,9 +27,11 @@ type IOrder = {
 };
 
 const DateSpecifitOrder = ({
+  orderId,
   ordrDate,
   orders,
 }: {
+  orderId: number;
   ordrDate: Date;
   orders: IOrder[];
 }) => {
@@ -37,7 +40,7 @@ const DateSpecifitOrder = ({
     month: "short", // Aug
     year: "numeric", // 2025
   });
-
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const setOrderState = useSetRecoilState(ordersState);
   const setLoading = useSetRecoilState(loadingState);
   const handleDeleteOrder = async () => {
@@ -45,12 +48,22 @@ const DateSpecifitOrder = ({
       "Do you really want to delete all the order of this day"
     );
     if (!isConfirmed) return;
-    setLoading(true);
-    await new Promise((res) => setTimeout(res, 3000));
-    setOrderState((pre) => {
-      return pre.filter((pro) => pro.date != ordrDate);
-    });
-    setLoading(false);
+    try {
+      setLoading(true);
+      const res = await axios.delete(
+        `${BACKEND_URL}/order/deleteorder/${orderId}`
+      );
+      if (res.status != 200)
+        return alert("Some error occured please try again later");
+      setOrderState((pre) => {
+        return pre.filter((pro) => pro.date != ordrDate);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+    alert("Successfully deleted the order");
   };
 
   return (
