@@ -54,6 +54,7 @@ orderRoute.post("/createorder", async (c: Context) => {
           username: data.username,
           userAddress: data.userAddress,
           userContact: data.userContact,
+          userAltrContact: data.userAltrContact,
           userLandmark: data.userLandmark,
           userState: data.userState,
           userPincode: data.userPincode,
@@ -115,6 +116,56 @@ orderRoute.post("/createorder", async (c: Context) => {
   } catch (error) {
     console.log(error);
     return c.json({ msg: "Internal Server Error" }, 500);
+  }
+});
+
+orderRoute.get("/getallorder", async (c: Context) => {
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    const allOrders = await prisma.allOrders.findMany({
+      include: {
+        orders: {
+          include: {
+            productPurchased: {
+              include: {
+                product: {
+                  include: {
+                    Images: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        date: "desc",
+      },
+    });
+    console.log(allOrders);
+    return c.json({ message: "Here is your orders", allOrders });
+  } catch (error) {
+    return c.json({ message: "Internal Server Error" }, 500);
+  }
+});
+
+orderRoute.delete("/deleteorder/:id", async (c: Context) => {
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    const id = c.req.param("id");
+    await prisma.allOrders.deleteMany({
+      where: {
+        order_id: Number(id),
+      },
+    });
+    return c.json({ message: "Successfully deleted the order" });
+  } catch (error) {
+    console.log(error);
+    return c.json({ message: "Internal Server Error" }, 500);
   }
 });
 
