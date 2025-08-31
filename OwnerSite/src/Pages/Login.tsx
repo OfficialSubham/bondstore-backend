@@ -5,7 +5,7 @@ import { useSetRecoilState } from "recoil";
 import { loadingState } from "../store/loadingState";
 
 const Login = () => {
-  const BACKEND_URL = import.meta.env.VITE_BACKENDURL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const setLoading = useSetRecoilState(loadingState);
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
