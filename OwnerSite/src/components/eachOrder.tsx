@@ -20,6 +20,7 @@ const EachOrder = ({ orderDetails }: { orderDetails: IOrder }) => {
                 src={pro.product.Images[0].imgUrl}
                 className="w-full h-35 rounded-md object-fit"
                 alt=""
+                loading="lazy"
               />
               <h1>Quantity : {pro.quantity}</h1>
               <h1>Price : {pro.product.productDiscountedPrice}</h1>

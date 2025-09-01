@@ -39,6 +39,7 @@ export default function Carousel({
           >
             <div className="h-55 rounded-md shadow-md">
               <img
+                loading="lazy"
                 src={img.imgUrl}
                 alt={`preview-${img.imgUrl}`}
                 className="h-full w-full rounded-md"
