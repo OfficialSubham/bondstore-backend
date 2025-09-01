@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { loadingState } from "../store/loadingState";
+import { Eye, EyeClosed } from "lucide-react";
 
 const Login = () => {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const setLoading = useSetRecoilState(loadingState);
   const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
   const [userDetails, setUserDetails] = useState({
     username: "",
     password: "",
@@ -49,13 +51,22 @@ const Login = () => {
         </div>
         <div>
           <h1 className="font-bold">Password</h1>
-          <input
-            type="password"
-            name="password"
-            value={userDetails.password}
-            onChange={handleOnchange}
-            className="bg-slate-400/40 w-full rounded-md h-10 px-2"
-          />
+          <div className="flex items-center bg-slate-400/40 rounded-md pr-2">
+            <input
+              type={showPass ? "text" : "password"}
+              name="password"
+              value={userDetails.password}
+              onChange={handleOnchange}
+              className=" w-full rounded-md outline-none h-10 px-2"
+            />
+            <div
+              onClick={() => {
+                setShowPass((pre) => !pre);
+              }}
+            >
+              {showPass ? <EyeClosed /> : <Eye />}
+            </div>
+          </div>
         </div>
         <button
           className="bg-black text-white font-bold rounded-md w-fit px-5 py-2 mx-auto"
