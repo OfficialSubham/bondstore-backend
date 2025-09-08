@@ -43,17 +43,21 @@ allProduct.get("/giveinitial", async (c: Context) => {
     "handclutch",
     "mensidebag",
   ];
-
-  const productsByCategory: Record<string, ProductInter[]> = {};
-  for (const cat of categories) {
-    const items = await prisma.product.findMany({
+  const promises = categories.map((cat) =>
+    prisma.product.findMany({
       where: { productCategory: cat },
       include: { Images: true },
       orderBy: { productId: "desc" },
       take: 5,
-    });
-    productsByCategory[cat] = items;
-  }
+    })
+  );
+
+  // Run them in parallel
+  const results = await Promise.all(promises);
+  const productsByCategory: Record<string, ProductInter[]> = {};
+  categories.forEach((cat, i) => {
+    productsByCategory[cat] = results[i];
+  });
 
   return c.json({ message: "Initial products", productsByCategory });
 });
