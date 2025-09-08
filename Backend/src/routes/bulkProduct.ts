@@ -70,14 +70,34 @@ allProduct.get("/category/:name", async (c: Context) => {
 
     const category = c.req.param("name") as category;
     const page = Number(c.req.query("page") || 1);
-    const pageSize = 5;
+    console.log(page);
+    const pageSize = 4;
     const items = await prisma.product.findMany({
       where: { productCategory: category },
       include: { Images: true },
+      orderBy: { productId: "desc" },
       skip: (page - 1) * pageSize,
       take: pageSize,
     });
+    console.log(items);
+    return c.json({ category, products: items });
+  } catch (error) {
+    console.log(error);
+    return c.json({ message: "Internal Server Error", error }, 500);
+  }
+});
 
+allProduct.get("/category/all/:name", async (c: Context) => {
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    const category = c.req.param("name") as category;
+    const items = await prisma.product.findMany({
+      where: { productCategory: category },
+      include: { Images: true },
+    });
+    console.log(items);
     return c.json({ category, products: items });
   } catch (error) {
     console.log(error);
