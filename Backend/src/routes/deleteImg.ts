@@ -8,7 +8,7 @@ const imgRoute = new Hono();
 imgRoute.post("/deleteimg", async (c: Context) => {
   const body = await c.req.json();
   const { images } = body;
-  console.log(images);
+  // console.log(images);
   try {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,

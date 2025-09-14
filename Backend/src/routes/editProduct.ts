@@ -17,7 +17,7 @@ editProduct.put("/editproduct", async (c: Context) => {
     const productDesc = body.get("productDesc");
     const productCategory = body.get("productCategory");
     const productDiscountedPrice = body.get("productDiscountedPrice");
-    console.log(producId);
+    // console.log(producId);
     const { success, data, error } = ProductSchema.safeParse({
       productAcutalPrice: Number(productAcutalPrice),
       productName,

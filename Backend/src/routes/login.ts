@@ -13,7 +13,7 @@ loginRoute.post("/", async (c: Context) => {
       return c.json({ msg: "Please enter valid credential" }, 400);
     const privateKey = c.env.LOGINKEY;
     const token = await sign(username, privateKey);
-    console.log(token);
+    // console.log(token);
     return c.json({ msg: "Login Successfully", token });
   } catch (error) {
     return c.json({ msg: "Internal Server Error" }, 500);

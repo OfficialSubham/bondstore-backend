@@ -47,7 +47,7 @@ allProduct.get("/giveinitial", async (c: Context) => {
     prisma.product.findMany({
       where: { productCategory: cat },
       include: { Images: true },
-      orderBy: { productId: "desc" },
+      orderBy: [{ productDiscountedPrice: "asc" }, { productId: "asc" }],
       take: 5,
     })
   );
@@ -56,9 +56,8 @@ allProduct.get("/giveinitial", async (c: Context) => {
   const results = await Promise.all(promises);
   const productsByCategory: Record<string, ProductInter[]> = {};
   categories.forEach((cat, i) => {
-    productsByCategory[cat] = results[i];
+    productsByCategory[cat] = results[i] as ProductInter[];
   });
-
   return c.json({ message: "Initial products", productsByCategory });
 });
 
@@ -70,16 +69,15 @@ allProduct.get("/category/:name", async (c: Context) => {
 
     const category = c.req.param("name") as category;
     const page = Number(c.req.query("page") || 1);
-    console.log(page);
-    const pageSize = 4;
+    const pageSize = 5;
     const items = await prisma.product.findMany({
       where: { productCategory: category },
       include: { Images: true },
-      orderBy: { productId: "desc" },
+      orderBy: [{ productDiscountedPrice: "asc" }, { productId: "asc" }],
       skip: (page - 1) * pageSize,
       take: pageSize,
     });
-    console.log(items);
+    // console.log(items.length);
     return c.json({ category, products: items });
   } catch (error) {
     console.log(error);
@@ -97,7 +95,7 @@ allProduct.get("/category/all/:name", async (c: Context) => {
       where: { productCategory: category },
       include: { Images: true },
     });
-    console.log(items);
+    // console.log(items);
     return c.json({ category, products: items });
   } catch (error) {
     console.log(error);

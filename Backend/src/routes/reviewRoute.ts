@@ -24,9 +24,9 @@ reviewRoute.post("/createReview", async (c: Context) => {
     }).$extends(withAccelerate());
     const body = await c.req.json();
     const { name, review, rating } = body;
-    console.log(name);
-    console.log(review);
-    console.log(rating);
+    // console.log(name);
+    // console.log(review);
+    // console.log(rating);
     const { success } = ReviewSchema.safeParse({
       name,
       review,

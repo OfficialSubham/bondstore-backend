@@ -19,7 +19,7 @@ orderRoute.post("/createorder", async (c: Context) => {
       customerState,
       productPurchased,
     } = body as Order;
-    console.log(customerName);
+    // console.log(customerName);
     const { success, data } = UserSchema.safeParse({
       username: customerName,
       userAddress: customerAddress,
@@ -144,7 +144,7 @@ orderRoute.get("/getallorder", async (c: Context) => {
         date: "desc",
       },
     });
-    console.log(allOrders);
+    // console.log(allOrders);
     return c.json({ message: "Here is your orders", allOrders });
   } catch (error) {
     return c.json({ message: "Internal Server Error" }, 500);
