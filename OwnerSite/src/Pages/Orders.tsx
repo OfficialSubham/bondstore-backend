@@ -9,7 +9,7 @@ const Orders = () => {
       <h1>All Orders</h1>
       <div className="flex-1 flex flex-col gap-10 bg-black w-full">
         {orders.map((ordr) => {
-          console.log(ordr);
+          // console.log(ordr);
           return (
             // <div key={ordr.order_id}>hello</div>
             <DateSpecifitOrder
